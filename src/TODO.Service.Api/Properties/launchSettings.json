@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Todo.Service.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:58173;http://localhost:58174",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DATABASE_CONNECTION_STRING": "test"
+      },
+      "dotnetRunMessages": true
+    }
+  }
+}
