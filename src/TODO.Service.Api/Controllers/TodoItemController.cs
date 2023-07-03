@@ -1,4 +1,5 @@
-﻿using Todo.Service.Application.TodoItems.Models;
+﻿using Todo.Service.Application.TodoItems.Commands.Create;
+using Todo.Service.Application.TodoItems.Models;
 using Todo.Service.Application.TodoItems.Queries.Get;
 using Todo.Service.Application.TodoItems.Queries.Search;
 
@@ -8,6 +9,29 @@ public class TodoItemController : BaseController
 {
     public TodoItemController(IMediator mediator) : base(mediator) { }
 
+
+    [HttpGet]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<TodoItemViewModel>))]
+    [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ProblemDetails))]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ProblemDetails))]
+    public async Task<ActionResult<List<TodoItemViewModel>>> ListAll()
+    {
+        return Ok(await _mediator.Send(new ListTodoItemQuery()));
+    }
+
+
+    [HttpGet("{id}")]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TodoItemViewModel))]
+    [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ProblemDetails))]
+    [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ProblemDetails))]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ProblemDetails))]
+    public async Task<ActionResult<TodoItemViewModel>> Get(Guid id)
+    {
+        return Ok(await _mediator.Send(new GetTodoItemQuery()
+        {
+            Id = id
+        }));
+    }
 
     [HttpGet("searchOptions")]
     [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(SearchOptions))]
@@ -31,25 +55,16 @@ public class TodoItemController : BaseController
         return Ok(await _mediator.Send(query));
     }
 
-    [HttpGet("{id}")]
-    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TodoItemViewModel))]
-    [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ProblemDetails))]
-    [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ProblemDetails))]
-    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ProblemDetails))]
-    public async Task<ActionResult<TodoItemViewModel>> Get(Guid id)
-    {
-        return Ok(await _mediator.Send(new GetTodoItemQuery()
-        {
-            Id = id
-        }));
-    }
 
-    [HttpGet]
-    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<TodoItemViewModel>))]
+    [HttpPost]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(CreateSuccess))]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ValidationProblemDetails))]
     [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ProblemDetails))]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ProblemDetails))]
-    public async Task<ActionResult<List<TodoItemViewModel>>> ListAll()
+    public async Task<ActionResult<CreateSuccess>> Create([FromBody] CreateTodoItem model)
     {
-        return Ok(await _mediator.Send(new ListTodoItemQuery()));
+        var command = model.Adapt<CreateTodoItemCommand>();
+
+        return Ok(await _mediator.Send(command));
     }
 }

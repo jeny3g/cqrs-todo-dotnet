@@ -45,6 +45,7 @@ public class Messages
         public const string GREATER_THAN_VALUE = "VALIDATION_GREATER_THAN_VALUE";
         public const string LESS_THAN_OR_EQUAL_VALUE = "VALIDATION_LESS_THAN_OR_EQUAL_VALUE";
         public const string CNPJ = "VALIDATION_CNPJ";
+        public const string INVALID_DATE = "VALIDATION_INVALID_DATE";
     }
 
     public static class Exception
