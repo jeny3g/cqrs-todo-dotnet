@@ -7,7 +7,7 @@
       "applicationUrl": "https://localhost:58173;http://localhost:58174",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "DATABASE_CONNECTION_STRING": "test"
+        "DATABASE_CONNECTION_STRING": "Server=localhost;Port=5432;Database=todoproject;User Id=postgres;Password=Postgres2023!;"
       },
       "dotnetRunMessages": true
     }

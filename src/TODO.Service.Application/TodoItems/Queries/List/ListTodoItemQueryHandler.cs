@@ -15,18 +15,9 @@ public class ListTodoItemQueryHandler : IRequestHandler<ListTodoItemQuery, List<
 
     public async Task<List<TodoItemViewModel>> Handle(ListTodoItemQuery request, CancellationToken cancellationToken)
     {
-        var items = new List<TodoItemViewModel>()
-        {
-            new TodoItemViewModel()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test",
-                Description = "Test",
-                IsDone = false,
-                DueDate = DateTime.Now,
-                Active = true
-            }
-        };
+        var items = await _context.TodoItems
+            .ProjectToType<TodoItemViewModel>()
+            .ToListAsync(cancellationToken);
 
         return items;
     }
