@@ -1,5 +1,6 @@
 ﻿using Todo.Service.Application.TodoItems.Commands.Create;
 using Todo.Service.Application.TodoItems.Commands.Delete;
+using Todo.Service.Application.TodoItems.Commands.Edit;
 using Todo.Service.Application.TodoItems.Models;
 using Todo.Service.Application.TodoItems.Queries.Get;
 using Todo.Service.Application.TodoItems.Queries.Search;
@@ -67,6 +68,21 @@ public class TodoItemController : BaseController
         var command = model.Adapt<CreateTodoItemCommand>();
 
         return Ok(await _mediator.Send(command));
+    }
+
+    [HttpPut("{id}")]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(ValidationProblemDetails))]
+    [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ProblemDetails))]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ProblemDetails))]
+    public async Task<IActionResult> Edit(Guid id, [FromBody] EditTodoItem model)
+    {
+        var command = model.Adapt<EditTodoItemCommand>();
+        command.Id = id;
+
+        await _mediator.Send(command);
+
+        return NoContent();
     }
 
 
