@@ -16,6 +16,7 @@ public class ListTodoItemQueryHandler : IRequestHandler<ListTodoItemQuery, List<
     public async Task<List<TodoItemViewModel>> Handle(ListTodoItemQuery request, CancellationToken cancellationToken)
     {
         var items = await _context.TodoItems
+            .Where(e => e.Active)
             .ProjectToType<TodoItemViewModel>()
             .ToListAsync(cancellationToken);
 

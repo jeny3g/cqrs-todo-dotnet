@@ -1,4 +1,5 @@
 ﻿using Todo.Service.Application.TodoItems.Commands.Create;
+using Todo.Service.Application.TodoItems.Commands.Delete;
 using Todo.Service.Application.TodoItems.Models;
 using Todo.Service.Application.TodoItems.Queries.Get;
 using Todo.Service.Application.TodoItems.Queries.Search;
@@ -66,5 +67,21 @@ public class TodoItemController : BaseController
         var command = model.Adapt<CreateTodoItemCommand>();
 
         return Ok(await _mediator.Send(command));
+    }
+
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound, Type = typeof(ProblemDetails))]
+    [ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(ProblemDetails))]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError, Type = typeof(ProblemDetails))]
+    public async Task<ActionResult<TodoItemViewModel>> Delete(Guid id)
+    {
+        await _mediator.Send(new DeleteTodoItemCommand()
+        {
+            Id = id
+        });
+
+        return NoContent();
     }
 }
