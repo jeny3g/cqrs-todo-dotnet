@@ -22,7 +22,8 @@ public class TodoInitializer
             Id = Guid.NewGuid(),
             Title = "Default Todo Item",
             Description = "Default Todo Item Description",
-            IsDone = false
+            IsDone = false,
+            Active = true
         };
 
         context.TodoItems.Add(todoItem);
