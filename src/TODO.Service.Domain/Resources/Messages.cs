@@ -35,6 +35,7 @@ public class Messages
 
     public static class Entities
     {
+        public const string TODO_ITEM = "ENTITY_TODO_ITEM";
     }
 
     public static class Validations
