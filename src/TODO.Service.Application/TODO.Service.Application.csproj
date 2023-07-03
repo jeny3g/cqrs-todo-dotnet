@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Todo.Service.Persistence\Todo.Service.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TodoItems\Queries\Search\" />
+  </ItemGroup>
+
 </Project>
