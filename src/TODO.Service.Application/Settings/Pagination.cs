@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Todo.Service.Application.Settings;
+﻿namespace Todo.Service.Application.Settings;
 
 public static class Pagination
 {

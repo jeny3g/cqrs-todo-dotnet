@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Todo.Service.Domain.Utils;
 
 namespace Todo.Service.Application.Settings.FluentValidations;
 

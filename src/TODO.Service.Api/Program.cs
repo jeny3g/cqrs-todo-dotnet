@@ -5,7 +5,6 @@ using NLog.Web;
 using System.Globalization;
 using Todo.Service.Api.Helpers;
 using Todo.Service.CrossCutting;
-using Todo.Service.Domain.Settings;
 using Todo.Service.Persistence;
 
 var logger = LogManager.Setup()
