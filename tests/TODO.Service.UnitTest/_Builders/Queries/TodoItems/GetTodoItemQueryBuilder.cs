@@ -21,4 +21,10 @@ public class GetTodoItemQueryBuilder : BaseBuilder<GetTodoItemQueryBuilder, GetT
             Id = Id
         };
     }
+
+    public GetTodoItemQueryBuilder WithId(Guid id)
+    {
+        Id = id;
+        return this;
+    }
 }

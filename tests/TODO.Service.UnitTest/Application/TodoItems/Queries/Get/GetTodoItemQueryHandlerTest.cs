@@ -10,31 +10,45 @@ public class GetTodoItemQueryHandlerTest
     private Messages _messages;
     private GetTodoItemQueryHandler _sut;
 
+    private Faker _faker;
+
     private GetTodoItemQueryBuilder _getTodoItemQueryBuilder;
     private TodoItemBuilder _todoItemBuilder;
-    private TodoItem _item;
+
+    private Guid _id;
 
     public GetTodoItemQueryHandlerTest()
     {
-        SetupDependencies();
+        Setup();
         InitializeTestData();
+        InitializeBuilders();
+        InitializeDependencies();
     }
 
-    private void SetupDependencies()
+    private void Setup()
     {
+        _faker = new Faker();
         _context = Substitute.For<ITodoContext>();
         _messages = MessagesConfig.Build();
         _sut = new GetTodoItemQueryHandler(_context, _messages);
     }
 
-    private void InitializeTestData()
+    private void InitializeBuilders()
     {
         _getTodoItemQueryBuilder = GetTodoItemQueryBuilder.New();
         _todoItemBuilder = TodoItemBuilder.New();
+    }
 
-        var set = new List<TodoItem>() { _item }.AsDbSet();
+    private void InitializeTestData()
+    {
+        _id = _faker.Random.Guid();
+    }
 
-        _context.TodoItems.Returns(set);
+    private void InitializeDependencies()
+    {
+        var setTodoItems = new List<TodoItem>().AsDbSet();
+        _context.TodoItems.Returns(setTodoItems);
+
     }
 
     [Fact]
@@ -42,9 +56,6 @@ public class GetTodoItemQueryHandlerTest
     {
         var request = _getTodoItemQueryBuilder.Build();
 
-        var setTransactions = new List<TodoItem> { }.AsDbSet();
-
-        _context.TodoItems.Returns(setTransactions);
         var ex = await Assert.ThrowsAsync<NotFoundException>(() => _sut.Handle(request, CancellationToken.None));
 
         Assert.Equal(_messages.GetMessage(Messages.Entities.TODO_ITEM), ex.Name);
@@ -54,27 +65,22 @@ public class GetTodoItemQueryHandlerTest
     [Fact]
     public async Task Must_Return_Entity()
     {
-        var request = _getTodoItemQueryBuilder.Build();
-
-        var expectedTransaction = CreateTodoItemSet(request.Id);
+        var request = _getTodoItemQueryBuilder.WithId(_id).Build();
+        SetupTodoItems(_id);
 
         var result = await _sut.Handle(request, CancellationToken.None);
 
         Assert.NotNull(result);
-        Assert.Equal(expectedTransaction.Id, result.Id);
+        Assert.Equal(request.Id, result.Id);
     }
 
-    private TodoItem CreateTodoItemSet(Guid guid)
+
+    private void SetupTodoItems(Guid id)
     {
-        var transaction = _todoItemBuilder.WithId(guid).Build();
+        var todoItem = _todoItemBuilder.WithId(id).Build();
 
-        var setTransactions = new List<TodoItem>
-        {
-            transaction
-        }.AsDbSet();
+        var setTodoItems = new List<TodoItem>() { todoItem }.AsDbSet();
 
-        _context.TodoItems.Returns(setTransactions);
-
-        return transaction;
+        _context.TodoItems.Returns(setTodoItems);
     }
 }
