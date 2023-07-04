@@ -1,4 +1,5 @@
-﻿using Todo.Service.Application.TodoItems.Commands.Delete;
+﻿using Todo.Service.Application.TodoItems.Commands.Create;
+using Todo.Service.Application.TodoItems.Commands.Delete;
 
 namespace Todo.Service.UnitTest._Builders.Commands.TodoItems;
 
@@ -10,7 +11,7 @@ public class DeleteTodoItemCommandBuilder : BaseBuilder<DeleteTodoItemCommand, D
     {
         return new DeleteTodoItemCommandBuilder()
         {
-            Id = Guid.NewGuid()
+            Id = Guid.NewGuid(),
         };
     }
 
@@ -18,7 +19,7 @@ public class DeleteTodoItemCommandBuilder : BaseBuilder<DeleteTodoItemCommand, D
     {
         return new DeleteTodoItemCommand()
         {
-            Id = Id
+            Id = Id,
         };
     }
 

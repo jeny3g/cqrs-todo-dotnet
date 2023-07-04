@@ -40,7 +40,6 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <Folder Include="Application\TodoItems\Commands\Create\" />
     <Folder Include="Application\TodoItems\Commands\Edit\" />
   </ItemGroup>
 
