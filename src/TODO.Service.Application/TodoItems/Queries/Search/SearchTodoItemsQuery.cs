@@ -11,7 +11,6 @@ public class SearchTodoItems
     public bool? Active { get; set; }
 }
 
-
 public class SearchTodoItemsQuery : IRequest<PageResponse<TodoItemSearchViewModel>>
 {
     public string Title { get; set; }
