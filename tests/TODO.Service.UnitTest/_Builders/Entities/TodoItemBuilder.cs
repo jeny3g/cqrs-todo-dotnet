@@ -5,7 +5,6 @@ public class TodoItemBuilder : BaseComplexDbEntityBuilder<TodoItemBuilder, TodoI
     private bool Active;
     private bool IsDone;
 
-
     public static new TodoItemBuilder New()
     {
         return new TodoItemBuilder()

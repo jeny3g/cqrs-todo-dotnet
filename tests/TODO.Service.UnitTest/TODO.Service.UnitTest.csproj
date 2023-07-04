@@ -38,5 +38,9 @@
     <ProjectReference Include="..\..\src\Todo.Service.Domain\Todo.Service.Domain.csproj" />
     <ProjectReference Include="..\..\src\Todo.Service.Persistence\Todo.Service.Persistence.csproj" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="Application\TodoItems\Commands\" />
+  </ItemGroup>
 
 </Project>
