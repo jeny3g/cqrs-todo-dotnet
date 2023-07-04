@@ -1,6 +1,6 @@
 ﻿using Todo.Service.Application.TodoItems.Queries.Get;
 using Todo.Service.Persistence;
-using Todo.Service.UnitTest._Builders.Queries.TodoItem;
+using Todo.Service.UnitTest._Builders.Queries.TodoItems;
 
 namespace Todo.Service.UnitTest.Application.TodoItems.Queries.List;
 

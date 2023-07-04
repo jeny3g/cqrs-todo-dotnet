@@ -1,6 +1,6 @@
 ﻿using Todo.Service.Application.TodoItems.Queries.Get;
 
-namespace Todo.Service.UnitTest._Builders.Queries.TodoItem;
+namespace Todo.Service.UnitTest._Builders.Queries.TodoItems;
 
 public class GetTodoItemQueryBuilder : BaseBuilder<GetTodoItemQueryBuilder, GetTodoItemQuery>
 {

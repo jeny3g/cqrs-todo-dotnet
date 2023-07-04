@@ -1,6 +1,5 @@
 ﻿namespace Todo.Service.Application.TodoItems.Commands.Delete;
 
-
 public class DeleteTodoItemCommand : IRequest
 {
     public Guid Id { get; set; }
