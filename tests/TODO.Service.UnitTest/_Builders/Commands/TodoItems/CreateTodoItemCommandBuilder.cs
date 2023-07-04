@@ -2,7 +2,6 @@
 
 namespace Todo.Service.UnitTest._Builders.Commands.TodoItems;
 
-
 public class CreateTodoItemCommandBuilder : BaseBuilder<CreateTodoItemCommand, CreateTodoItemCommand>
 {
     public static new CreateTodoItemCommandBuilder New()
