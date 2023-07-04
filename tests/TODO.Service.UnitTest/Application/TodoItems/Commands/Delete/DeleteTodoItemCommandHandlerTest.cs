@@ -29,7 +29,6 @@ public class DeleteTodoItemCommandHandlerTest
     private void Setup()
     {
         _faker = new Faker();
-        _exceptionMessage = "Persistence exception occurred";
     }
 
     private void InitializeBuilders()
@@ -41,6 +40,7 @@ public class DeleteTodoItemCommandHandlerTest
     private void InitializeTestData()
     {
         _id = _faker.Random.Guid();
+        _exceptionMessage = "Persistence exception occurred";
     }
 
     private void InitializeDependencies()
@@ -69,7 +69,7 @@ public class DeleteTodoItemCommandHandlerTest
     public async Task Must_Throw_NotFoundException_When_Entity_Is_Inactive()
     {
         var request = _deleteTodoItemCommandBuilder.WithId(_id).Build();
-        CreateTodoItemsSet(_id, false);
+        SetupTodoItems(_id, false);
 
         var ex = await Assert.ThrowsAsync<NotFoundException>(() => _sut.Handle(request, CancellationToken.None));
 
@@ -83,7 +83,7 @@ public class DeleteTodoItemCommandHandlerTest
     public async Task Must_Save()
     {
         var request = _deleteTodoItemCommandBuilder.WithId(_id).Build();
-        CreateTodoItemsSet(_id);
+        SetupTodoItems(_id);
 
         await _sut.Handle(request, CancellationToken.None);
 
@@ -96,7 +96,7 @@ public class DeleteTodoItemCommandHandlerTest
     public async Task Must_Throw_PersistenceException_When_Ocurr_Error_In_SaveChangesAsync()
     {
         var request = _deleteTodoItemCommandBuilder.WithId(_id).Build();
-        CreateTodoItemsSet(_id);
+        SetupTodoItems(_id);
 
         _context.SaveChangesAsync(Arg.Any<CancellationToken>()).Returns(x => Task.FromException<int>(new Exception(_exceptionMessage)));
 
@@ -107,7 +107,7 @@ public class DeleteTodoItemCommandHandlerTest
         Assert.Equal(_exceptionMessage, ex.InnerException.Message);
     }
 
-    private void CreateTodoItemsSet(Guid id, bool active = true)
+    private void SetupTodoItems(Guid id, bool active = true)
     {
         var todoItem = _todoItemBuilder.WithId(id).WithActive(active).Build();
 
