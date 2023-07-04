@@ -56,7 +56,7 @@ public class GetTodoItemQueryHandlerTest
     {
         var request = _getTodoItemQueryBuilder.Build();
 
-        var expectedTransaction = CreateTransactionSet(request.Id);
+        var expectedTransaction = CreateTodoItemSet(request.Id);
 
         var result = await _sut.Handle(request, CancellationToken.None);
 
@@ -64,7 +64,7 @@ public class GetTodoItemQueryHandlerTest
         Assert.Equal(expectedTransaction.Id, result.Id);
     }
 
-    private TodoItem CreateTransactionSet(Guid guid)
+    private TodoItem CreateTodoItemSet(Guid guid)
     {
         var transaction = _todoItemBuilder.WithId(guid).Build();
 

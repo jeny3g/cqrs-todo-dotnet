@@ -29,4 +29,11 @@ public class TodoItemBuilder : BaseComplexDbEntityBuilder<TodoItemBuilder, TodoI
 
         return base.Build(model);
     }
+
+    public TodoItemBuilder WithActive(bool value)
+    {
+        Active = value;
+
+        return this;
+    }
 }
